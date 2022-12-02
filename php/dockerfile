@@ -1,0 +1,21 @@
+FROM php:7.4.32-apache
+RUN apt-get update \
+    && apt-get install -y zliblg-dev \
+    && apt-get install -y zip unzip \
+    && apt-get -y install libzip-dev \
+    && docker-php-ext-install pdo_mysql mysqli mbstring zip\
+    && a2enmod rewrite
+
+# composer をインストールしたい
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer
+
+WORKDIR /var/www/html
+
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_HOME /composer
+ENV PATH $PATH:/composer/vendor/bin
+
+ENV TZ=Asia/Tokyo
+
