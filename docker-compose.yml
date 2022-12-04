@@ -1,0 +1,49 @@
+version: "3.9"
+services: 
+  db:
+    image: mysql:8.0
+    container_name: "laravel-db"
+    ports:
+      - 3306:3306
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./src/data:/var/lib/mysql
+    
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: admin
+      
+      MYSQL_PASSWORD: WRITEDOWNPASSWORLD
+
+
+      TZ: 'Asia/Tokyo'
+    
+  php:
+    build: ./src/php
+    container_name: "laravel-php"
+    volumes:
+      - ./src/app:/var/www/html
+    depends_on:
+     - db
+
+  nginx:
+    image: nginx:latest
+    ports:
+     - 8000:80
+    volumes:
+     - ./src/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+     - ./src/app:/var/www/html
+    depends_on:
+     - php
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+     - 8080:80
+    depends_on:
+     - db
+    environment:
+     PMA_HOST: db
+     MYAQL_LOOT_PASSWORD: ROOT
