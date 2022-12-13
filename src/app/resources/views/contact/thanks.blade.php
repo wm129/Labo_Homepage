@@ -1,3 +1,5 @@
+// メール送信時に表示を変更する機能　（Draft版）
+
 <form method="POST" action="{{ route('thanks') }}" class="confirm__ar">
     {{ csrf_field() }}
     {{ method_field('POST') }}
