@@ -21,8 +21,8 @@ Route::post('/confirm',[CotactFormsController::class,'confirm'])->name('confirm'
 //メールの送信を行うため、sendを取得
 Route::get('/thanks',[CotactFormsController::class,'send']);
 Route::post('/thanks',[CotactFormsController::class,'send'])->name('send');
-
-
+//Storeの処理を追加した
+//Route::post('/','store')->name('store');
 
 //Route::resource('contacts', 'App\Http\Controllers\ContactFormsController')->only([
 //    'index','show'

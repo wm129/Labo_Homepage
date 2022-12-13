@@ -1,8 +1,8 @@
 <form method="POST" action="{{ route('send') }}" class="confirm__ar">
-    {{ csrf_field() }}
-    {{ method_field('POST') }}
+    @csrf
+    @method('POST')
       <dt class="confirm__tag">氏名</dt>
-      <dd>{{ $inputs['name'] }}</dd>
+      <dd>{{ $inputs['your_name'] }}</dd>
       <input type="hidden" name="your_name" value="{{ $inputs['your_name'] }}">
     </dl>
     <dl>
@@ -13,7 +13,7 @@
     <dl>
       <dt class="confirm__tag">お問い合わせ内容</dt>
       <dd>
-        {!! nl2br(e($inputs['content'])) !!}
+        {!! nl2br(e($inputs['contact'])) !!}
         <input type="hidden" name="content" value="{{ $inputs['content'] }}">
       </dd>
     </dl>
